@@ -40,16 +40,17 @@ def save_db(db) :
 
 def print_characters(db) :
     for character in db :
-        print(character)
+        print('db : ',character)
 
 
 # select characters from London
 def select_from_london(characters) : # list of character ---> value---> location ---> list 
-    res = []
+    res = []  
     for elt in characters:
-        if elt.location == 'London':
+        if elt['location'] == 'London':
             res.append(elt)
     return res
+    
 
 # select characters under 18
 def select_minors(characters) : #list of character --> value --> dob(dd/mm/yy) --> compare to today's year --> if less then 18 --> list
@@ -63,7 +64,7 @@ def select_minors(characters) : #list of character --> value --> dob(dd/mm/yy) -
 #today = date.today().year
     res = []
     for elt in characters : 
-       if date.today().year - int(elt.dob.split("/")[2]) < 18 : 
+       if date.today().year - int(elt['dob'].split("/")[2]) < 18 : 
             res.append(elt)
     return res
  
@@ -72,7 +73,8 @@ def select_minors(characters) : #list of character --> value --> dob(dd/mm/yy) -
 def select_interval(characters, min, max) : 
     res = []
     for elt in characters : 
-       if date.today().year - int(elt.dob.split("/")[2]) > min and date.today().year - int(elt.dob.split("/")[2]) < max : 
+        dob = date.today().year - int(elt['dob'].split("/")[2])
+        if dob > min and dob < max : 
             res.append(elt)
     return res
 
@@ -93,27 +95,29 @@ def main() :
         character = new_character(f"persos_{i}", f"lastname_{i}", f"{randint(1, 31)}/{randint(1, 12)}/{randint(1900, 2020)}", cities[randint(0, len(cities) - 1)], "...", "...")
             
         # adding character to db
-        characters = add_db(characters, character)
-        
+        characters = add_db(characters, character)    
 
     # select characters from London
     characters_from_london = select_from_london(characters)
-    print_characters(characters_from_london)
+    print('---CHARACTERS FROM LONDON --- ', characters_from_london)
+    print()
     
     # selecting minor characters
     characters_minor = select_minors(characters)
-    print_characters(characters_minor)
+    print('---CHARACTERS MINOR  ---',characters_minor)
+    print()
     
     # selecting minor characters
     min, max = 22, 46
     characters_interval = select_interval(characters, min, max)
-    print_characters(characters_interval)
-
+    print('---CHARACTERS AGE BETWEEN 22 AND 46 ---',characters_interval)
+    print()
+    
     # save db into json file
     db['characters'] = characters
     
     
-    print_characters(characters)
+    print('---ALL THE CHARACTERS ---',characters)
     
     save_db(db)
 
