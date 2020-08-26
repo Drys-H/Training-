@@ -2,51 +2,55 @@ ls = [34, 5, 2, 35435, 2, -1, 34, 987, 43]
 print(ls)
 
 def add_1(l) : # increment EACH element of the list 
-    for i in range(len(ls)):
-        ls[i] = ls[i] + 1 
-    return ls
+    for i in range(len(l)):
+        l[i] = l[i] + 1 
+    return l
     
 def power2(l) : # square all the elements of the list     
-    return [i**2 for i in ls] 
+    return [i**2 for i in l] # comprehensive list [op(i) for i in range(10)]
 
-    #res = []
-    #for i in range(len(ls)):  
-        #res = pow(i,2)
+    res = []
+    for i in range(len(ls)):  
+        res.append(pow(ls[i],2))
     
-    #return res
+    return res
 
 def pop(l) : # remove the head of the list   
-    ls.pop(0)
-    return ls 
+    l.pop(0)
+    return l 
 
 def add_elt(l) : # add an element at the end of the list   
-    ls.append(5)
-    return ls
+    l.append(5)
+    return l
 
 def lenghtSimple(l) :     
-    elt = len(ls)
-    return elt
+    return len(l)
 
-def lenght(l, n) : # process the lenght of the list
-    pass
-    
-
-
+def lenght(l) : # process the lenght of the list
+    counter=0
+    for i in l:
+       counter =+ 1
+    return counter 
+        
+   
 def insertAtSimple(l) :   
-    ls.insert(2,3)
-    return ls
+    l.insert(2,3)
+    return l
 
-def insertAt(l, n, elt) : # add an element to the list at the n index 
-    pass 
-
-
-
-
+def insertAt(l, n, elt) : # add an element to the list at the n index    
+    res = []
+    counter = 0
+    for e in l:
+        if counter == n: 
+            res.append(elt)
+        res.append(e)     
+        counter =+ 1 
+    return res
 
 def removeTail(l) : # remove the last element of the list    
     res =[]
     i = 1
-    res = ls[: len(ls) - i ]
+    res = l[: len(l) - i ]
     return res 
     
     #ls.remove(5)
